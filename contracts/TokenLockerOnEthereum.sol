@@ -9,6 +9,7 @@ import "./TokenLocker.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract TokenLockerOnEthereum is TokenLocker, OwnableUpgradeable {
+    // maintain an Harmony client
     HarmonyLightClient public lightclient;
 
     mapping(bytes32 => bool) public spentReceipt;
@@ -28,6 +29,10 @@ contract TokenLockerOnEthereum is TokenLocker, OwnableUpgradeable {
         otherSideBridge = otherSide;
     }
 
+    // verify header with Harmony header and mmrProof
+    // verify receiptHash 
+    // verify receipt with receiptdata(MPTProof)
+    // and last result of receiptdata.expectedValue to execute for events
     function validateAndExecuteProof(
         HarmonyParser.BlockHeader memory header,
         MMRVerifier.MMRProof memory mmrProof,

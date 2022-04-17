@@ -14,6 +14,10 @@ function hexToBytes(hex) {
     return bytes;
 }
 
+// HarmonyProver:
+// link mmrVerifier
+// parse rlpHeader
+// parse tx receipt with callback and rpc method
 describe('HarmonyProver', function () {
     beforeEach(async function () {
         MMRVerifier = await ethers.getContractFactory("MMRVerifier");
@@ -66,6 +70,8 @@ describe('HarmonyProver', function () {
 let TokenLockerOnEthereum, tokenLocker;
 let HarmonyLightClient, lightclient;
 
+// lock token on eth net with MMRVerifier
+// fill functions issue/lock/unlock?
 describe('TokenLocker', function () {
     beforeEach(async function () {
         TokenLockerOnEthereum = await ethers.getContractFactory("TokenLockerOnEthereum");

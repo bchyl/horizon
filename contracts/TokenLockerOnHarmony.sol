@@ -13,6 +13,7 @@ contract TokenLockerOnHarmony is TokenLocker, OwnableUpgradeable {
     using SafeMathUpgradeable for uint256;
     using SafeERC20Upgradeable for IERC20Upgradeable;
 
+    // maitain an eth client
     EthereumLightClient public lightclient;
 
     mapping(bytes32 => bool) public spentReceipt;
@@ -20,7 +21,8 @@ contract TokenLockerOnHarmony is TokenLocker, OwnableUpgradeable {
     function initialize() external initializer {
         __Ownable_init();
     }
-
+    
+    // only contract owner can change eth client 
     function changeLightClient(EthereumLightClient newClient)
         external
         onlyOwner
@@ -32,6 +34,8 @@ contract TokenLockerOnHarmony is TokenLocker, OwnableUpgradeable {
         otherSideBridge = otherSide;
     }
 
+    // verify receiptHash and MPTProof with rootHash and calldata mptkey/proof
+    // result inclusion is proved for execute emitting kinds of events
     function validateAndExecuteProof(
         uint256 blockNo,
         bytes32 rootHash,

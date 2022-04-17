@@ -66,6 +66,7 @@ contract EthereumLightClient is Ethash, Initializable, PausableUpgradeable {
 
     uint256 public finalityConfirms;
 
+    // initializer init `storedBlock` from `_rlpHeader`
     function initialize(bytes memory _rlpHeader) external initializer {
         finalityConfirms = DEFAULT_FINALITY_CONFIRMS;
 
@@ -87,6 +88,7 @@ contract EthereumLightClient is Ethash, Initializable, PausableUpgradeable {
         _setFirstBlock(storedBlock);
     }
 
+    // check&verify input `_rlpHeader` and then save blockHeader info
     //uint32 constant loopAccesses = 64;      // Number of accesses in hashimoto loop
     function addBlockHeader(
         bytes memory _rlpHeader,
@@ -171,6 +173,7 @@ contract EthereumLightClient is Ethash, Initializable, PausableUpgradeable {
         return true;
     }
 
+    //query header info from `blockHash`
     function getBlockHeightMax() public view returns (uint256) {
         return blockHeightMax;
     }

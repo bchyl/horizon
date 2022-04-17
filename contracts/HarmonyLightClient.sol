@@ -104,6 +104,7 @@ contract HarmonyLightClient is
         emit RelayerRemoved(relayerAddress);
     }
 
+    // init `firstBlock` from rlpHeader decoding and init Relayers list
     function initialize(
         bytes memory firstRlpHeader,
         address[] memory initialRelayers,
@@ -137,6 +138,7 @@ contract HarmonyLightClient is
 
     }
 
+    // relayers submit checkpoint block filled with rlpHeader
     function submitCheckpoint(bytes memory rlpHeader) external onlyRelayers whenNotPaused {
         HarmonyParser.BlockHeader memory header = HarmonyParser.toBlockHeader(
             rlpHeader
@@ -171,7 +173,8 @@ contract HarmonyLightClient is
             checkPointBlock.hash
         );
     }
-
+    
+    // query LatestCheckPoint block from map `checkPointBlocks`
     function getLatestCheckPoint(uint256 blockNumber, uint256 epoch)
         public
         view
@@ -194,7 +197,8 @@ contract HarmonyLightClient is
         }
         checkPointBlock = checkPointBlocks[nearest];
     }
-
+    
+    // check valid cp
     function isValidCheckPoint(uint256 epoch, bytes32 mmrRoot) public view returns (bool status) {
         return epochMmrRoots[epoch][mmrRoot];
     }
